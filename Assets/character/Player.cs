@@ -6,12 +6,15 @@ public class Player : MonoBehaviour
 {
     public float speed = 20.0f;
     public float jumpSpeed = 24.0f;
+    public LayerMask groundLayer;
 
     private Rigidbody2D rb2d;
+    private BoxCollider2D col;
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        col = GetComponent<BoxCollider2D>();
     }
 
     void Update()
@@ -29,6 +32,6 @@ public class Player : MonoBehaviour
 
     private bool isGrounded()
     {
-        return Physics2D.BoxCast(transform.position, new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
+        return Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0f, Vector2.down, 0.1f, groundLayer);
     }
 }
