@@ -33,8 +33,21 @@ public class Player : MonoBehaviour
         transform.localScale = new Vector3(sizeScale, sizeScale, sizeScale);
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "hazard")
+        {
+            Dies();
+        }
+    }
+
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+        }
+
         // movement
         float moveHorizontal = Input.GetAxis("Horizontal");
 
@@ -140,6 +153,7 @@ public class Player : MonoBehaviour
         grabbedObject.GetComponent<Rigidbody2D>().gravityScale = 0;
         grabbedObject.transform.parent = transform;
         grabbedObject.GetComponent<BoxCollider2D>().enabled = false;
+        grabbedObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 
         // expand box collider to include grabbed object
         col.size = new Vector2(col.size.x + grabbedObject.GetComponent<BoxCollider2D>().size.x / sizeScale, col.size.y);
@@ -159,5 +173,10 @@ public class Player : MonoBehaviour
         col.size = colSizeBak;
         col.offset = colOffsetBak;
         grabOffset = 0;
+    }
+
+    private void Dies()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
     }
 }
