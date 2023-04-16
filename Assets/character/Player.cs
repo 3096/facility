@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
         }
 
         // grab
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             if (grabbedObject == null)
             {
@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
                 DropGrabbedObject();
             }
         }
-        else if (Input.GetKeyUp(KeyCode.E))
+        else if (Input.GetKeyUp(KeyCode.S))
         {
             // exit grab mode
             isGrabbing = false;
